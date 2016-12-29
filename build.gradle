@@ -1,19 +1,39 @@
-group 'com.gituhb.bitcreator'
-version '1.0-SNAPSHOT'
+buildscript {
+    repositories {
+        mavenCentral()
+    }
 
-task wrapper(type: Wrapper) {
-  gradleVersion = '3.1'
-  distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE")
+    }
 }
 
 apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
 
-sourceCompatibility = 1.5
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jar {
+    baseName = 'microservice'
+    version =  '0.1.1'
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'org.springframework.kafka:spring-kafka:1.1.1.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter'
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'junit:junit:4.12'
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.1'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
